@@ -12,6 +12,50 @@ This is a template repository for Python
 - [Poetry](https://python-poetry.org/docs/#installation)
 - [GNU Make](https://www.gnu.org/software/make/)
 
+## How to use
+
+```shell
+# Help
+❯ python main.py --help
+Usage: main.py [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --install-completion [bash|zsh|fish|powershell|pwsh]
+                                  Install completion for the specified shell.
+  --show-completion [bash|zsh|fish|powershell|pwsh]
+                                  Show completion for the specified shell, to
+                                  copy it or customize the installation.
+  --help                          Show this message and exit.
+
+Commands:
+  img2txt
+  pdf2img
+
+# Convert PDF document to images
+❯ mkdir -p artifacts
+❯ python main.py pdf2img \
+    --path-to-pdf /mnt/c/Users/stakenaka/Downloads/kubota/manual.pdf \
+    --path-to-output ./artifacts
+---
+Page 1 saved as ./artifacts/page_1.png
+Page 2 saved as ./artifacts/page_2.png
+Page 3 saved as ./artifacts/page_3.png
+Page 4 saved as ./artifacts/page_4.png
+Page 5 saved as ./artifacts/page_5.png
+Page 6 saved as ./artifacts/page_6.png
+Page 7 saved as ./artifacts/page_7.png
+Page 8 saved as ./artifacts/page_8.png
+Page 9 saved as ./artifacts/page_9.png
+Page 10 saved as ./artifacts/page_10.png
+
+# Convert image to text using GPT-4 with vision enhancements
+❯ python main.py img2txt \
+    --system-prompt "You are a top quality image scanning machine." \
+    --prompt "Please describe the following input image in Japanese in detail.", \
+    --path-to-image "./artifacts/page_1.png" \
+    --use-vision-enhancements
+```
+
 ## Development instructions
 
 ### Local development
