@@ -4,7 +4,7 @@
 
 # extractor-python
 
-This is a template repository for Python
+A data extract tool written in Python
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ Commands:
 # Convert PDF document to images
 ❯ mkdir -p artifacts
 ❯ python main.py pdf2img \
-    --path-to-pdf /mnt/c/Users/stakenaka/Downloads/kubota/manual.pdf \
+    --path-to-pdf ./dataset/manual.pdf \
     --path-to-output ./artifacts
 ---
 Page 1 saved as ./artifacts/page_1.png
@@ -74,4 +74,40 @@ make test
 
 # run CI tests
 make ci-test
+```
+
+### Docker container
+
+Use Docker to run the project in a container.
+
+```shell
+# run the container
+docker run --rm ks6088ts/extractor-python python main.py --help
+
+# go to the shell in the container
+docker run --rm -it \
+  -v $(pwd)/dataset:/app/dataset \
+  -v $(pwd)/artifacts:/app/artifacts \
+  -v $(pwd)/settings.env:/app/settings.env \
+  ks6088ts/extractor-python \
+  bash
+
+# call convert PDF document to images
+docker run --rm \
+  -v $(pwd)/dataset:/app/dataset \
+  -v $(pwd)/artifacts:/app/artifacts \
+  -v $(pwd)/settings.env:/app/settings.env \
+  ks6088ts/extractor-python \
+  python main.py pdf2img --path-to-pdf /app/dataset/manual.pdf --path-to-output /app/artifacts
+
+# call convert image to text using GPT-4 with vision enhancements
+docker run --rm \
+  -v $(pwd)/artifacts:/app/artifacts \
+  -v $(pwd)/settings.env:/app/settings.env \
+  ks6088ts/extractor-python \
+  python main.py img2txt \
+    --system-prompt "You are a top quality image scanning machine." \
+    --prompt "Please describe the following input image in Japanese in detail." \
+    --path-to-image /app/artifacts/page_1.png \
+    --use-vision-enhancements
 ```
