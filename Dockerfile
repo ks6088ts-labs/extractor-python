@@ -9,6 +9,8 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
     make \
+    gcc \
+    g++ \
     && rm -rf /var/lib/apt/lists/*
 
 # Install poetry: https://python-poetry.org/docs/#installing-with-the-official-installer
