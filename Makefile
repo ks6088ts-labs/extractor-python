@@ -14,7 +14,7 @@ install-deps-dev: ## install dependencies for development
 
 .PHONY: install-deps
 install-deps: ## install dependencies for production
-	poetry install --only-root
+	poetry install --without dev
 
 .PHONY: format-check
 format-check: ## format check
@@ -40,7 +40,7 @@ ci-test: install-deps-dev format-check lint test ## run CI tests
 # ---
 DOCKER_REPO_NAME ?= ks6088ts
 DOCKER_IMAGE_NAME ?= extractor-python
-DOCKER_COMMAND ?= python main.py
+DOCKER_COMMAND ?= python main.py --help
 
 # Tools
 TOOLS_DIR ?= $(HOME)/.local/bin
